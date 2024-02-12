@@ -168,6 +168,50 @@
     * Since Array is a continious block of memory so we can use pointer to access the array elements. so each element will take 4 bytes in 32 bit compiler and 8 bytes in 64 bit compiler. for example if array starts with address 1000 then the next element will be at 1002 in 16 bit compiler and 1004 in 32 bit compiler.
 
     
+## Fucntion Pointers
+
+```c++
+#include<stdio.h>
+int Add(int a, int b){
+    return a+b;
+}
+
+int main(){
+    int c;
+
+    // making a funciton Pointer
+    int (*p)(int,int);
+
+    // Assigning to the variable
+    p = &Add;
+    c = (*p)(2,3); // de-refrencing and executing the function.
+    printf("%d\n",c); 
+
+    //or we can use
+    p = Add;
+    c = p(2,3);
+    printf("%d",c);
+    // both printf give same result
+}
+```
+
+## Callbacks
+when a refrence of  funciton is passed as an arguement to another function then that funciton is called as `callback` funciton
+```c++
+#include<stdio.h>
+
+int A(){
+    printf("hello world");
+}
+int B(void (*ptr)()){
+    ptr();
+}
+
+int main(){
+    
+    B(A);
+}
+```
 
 # 2D Array
 
@@ -433,4 +477,67 @@ This table represents a 2D array `arr` with 3 rows and 4 columns. The first row 
     11
 
     // explaination: in the main func the global variable is printed 10, local() is called and inner() is called and global variable increase by 1 and printed 11, inner() is terminated and in local() `int global` is declared and initialized with 20 and printed 21, local() is terminated and in main() global variable is printed 11.
+    ```
+
+#
+
+### Calloc, Malloc, Realloc
+* malloc &rarr; void* malloc(size_i size)
+    ```c++
+    // it stores some garbage values bydefault
+
+    void* p = malloc(10*sizeof(int)); // return void pointer to size of 10 integer
+    *p =2; // will throw error
+    
+    // To solve this we need to typecast void to int*
+
+    int* p = (int*)malloc(10*sizeof(int));
+    //now it is oke
+    *p = 2;
+    ```
+* Calloc &rarr; void* calloc(size_i size)
+    ```c++
+    // calloc takes 2 arguement
+    // if calloc is initialized it store 0 bydefault in array
+
+    void* p = calloc(10,sizeof(int)); // return void pointer to size of 10 integer
+    *p =2; // will throw error
+    
+    // To solve this we need to typecast void to int*
+
+    int* p = (int*)calloc(10,sizeof(int));
+    //now it is oke
+    *p = 2;
+    
+    // once work is done we can free the memory by 
+    free(p);
+    // although the free memory is  accessable but that memory can be used for other perposes
+    ```
+* Realloc &rarr; void*realloc(void* ptr, size_t size)
+    ```c++
+    #include <stdio.h>
+    #include <stdlib.h>
+
+    int main(){
+        int n;
+        printf("Enter the size of the array: ");
+        scanf("%d", &n);
+        
+        // first dynamic memory allocation by malloc
+
+        int *A = (int*)malloc(n*sizeof(int));
+        for(int i=0;i<n;i++){
+            A[i]=i+1;
+        }
+
+        // then realloc the existing array to extend the memory
+
+        int* B = (int*)realloc(A,2*n*sizeof(int));
+        printf("Prev block address = %d, new address = %d\n",A,B);
+        for (int i = 0; i < 2*n; i++)
+        {
+            printf("%d\n",B[i]);
+        }
+    
+    }
     ```
