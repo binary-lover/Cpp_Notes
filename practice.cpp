@@ -186,25 +186,89 @@
 // }
 
 
+// #include<iostream>
+// using namespace std;
+// int global = 10;
+// void inner(){
+//     global++;
+//     global = global%10;
+//     cout<<global<<endl;
+// }
+
+// int local(){
+//     inner();
+//     int global = 20;
+//     global++;
+//     cout<<global<<endl;
+// }
+
+// int main(){
+//     cout<<global<<endl;
+//     local();
+//     cout<<global<<endl;
+//     return 0;
+// }
+
+
+// #include <iostream>
+// using namespace std;
+
+// int main() {
+
+//     int n = 4;
+//     int m = 3;
+
+//     int  arr = new int * [n];
+//     for (int i = 0; i < n; i++) {
+//         arr[i] = new int[m];
+//     }
+
+
+//     // int  arr = new int * [n];
+//     for (int i = 0; i < n; i++) {
+//         delete[] arr[i];
+//     }
+//     delete[] arr;
+    
+//     return 0;
+// }
+// #include <iostream>
+// using namespace std;
+
+// int main() {
+
+//     int n = 4;
+//     int m = 3;
+
+//     int** arr = new int*[n];
+//     for (int i = 0; i < n; i++) {
+//         arr[i] = new int[m];
+//     }
+//     for (int i = 0; i < n; i++) {
+//         delete[] arr[i];
+//     }
+//     delete[] arr;
+
+//     return 0;
+// }
+
 #include<iostream>
-using namespace std;
-int global = 10;
-void inner(){
-    global++;
-    global = global%10;
-    cout<<global<<endl;
-}
-
-int local(){
-    inner();
-    int global = 20;
-    global++;
-    cout<<global<<endl;
-}
-
+using std::cout;
+using std::endl;
 int main(){
-    cout<<global<<endl;
-    local();
-    cout<<global<<endl;
+    int n = 80;
+    int* m = &n;
+    delete m;
+    cout<<m<<std::endl;
+
+    int* p = new int(20);
+    cout<<*p<<std::endl;   
+
+    int* arr = new int[5];
+    for(int i=0;i<5;i++){
+        arr[i] = i;
+    }
+    delete [] arr;
+    cout<<&arr[0]<<std::endl;
     return 0;
 }
